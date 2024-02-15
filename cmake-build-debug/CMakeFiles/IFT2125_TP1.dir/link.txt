@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/IFT2125_TP1.dir/Q2_nth_prime/nth_prime.cpp.o CMakeFiles/IFT2125_TP1.dir/Q2_nth_prime/PrimeCalculator.cpp.o -o IFT2125_TP1 
