@@ -15,7 +15,6 @@ PrimeCalculator::PrimeCalculator()
 }
 
 using namespace std;
-vector<bool> numbers;
 
 int PrimeCalculator::CalculateNthPrime(int N)
 {
@@ -28,15 +27,13 @@ int PrimeCalculator::CalculateNthPrime(int N)
         //on sait que le theoreme du Rosser fonctionne pour tout n > 6 (source.Wikipedia)
         if (N < 6) N = 6;
 
-        // Vecteur des nombres de 2 à n
-        //On créé une liste des nombres de 2 à n
+        // Vecteur des nombres de booleans True de 2 à n
         vector<bool> numbers(N + 1, true);
         numbers[0] = false;
         numbers[1] = false;
 
         // Crible d'Eratosthene (source.Wikipedia)
-        // On peux se limiter à d ≤ √n (car c’est impossible d’avoir uniquement des facteurs qui sont > √n)
-        // Le +1 sur la borne supérieure du range est importante pour exclure les carrés parfaits 4, 9, 16, …
+        // On peux se limiter à  ≤ √n (car c’est impossible d’avoir uniquement des facteurs qui sont > √n)
         for (int i = 2; i <= floor(sqrt(N)); i++) {
 
             //si number[i] == True (donc potentiellement premier)
@@ -51,6 +48,7 @@ int PrimeCalculator::CalculateNthPrime(int N)
 
         // vecteur qui Récupére les nombres premiers
         vector<int> primes;
+
         //On itère i de 2 jusqu'à n(tout le tableau).
         //si number[i] == True alors il est premier
         for (int i = 2; i <= N; i++) {
