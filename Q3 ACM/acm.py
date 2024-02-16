@@ -5,11 +5,12 @@ import math
 import sys
 INFINITY = math.inf
 
+
 #Fonctions pour lire/écrire dans les fichier. Vous pouvez les modifier, 
 #faire du parsing, rajouter une valeur de retour, mais n'utilisez pas
 #d'autres librairies.
 #Functions to read/write in files. you can modify them, do some parsing,
-#add a return value, but don't use other librairies
+#add a return value, but don't use other librairiesr
 def read_problems(problems, input_file):
     # lecture du fichier/file reading
     coordonnees = []
@@ -32,7 +33,12 @@ def write(fileName, content):
 #Fonction main/Main function
 def main(args):
     global acm
+    global connected
+    global ens_connexion
+    ens_connexion=[set([])]
+    connected=[]
     acm = 0
+
     def distance(x1, y1, x2, y2):
         dx = x1 - x2
         dy = y1 - y2
@@ -42,35 +48,54 @@ def main(args):
 
     input_file = args[0]
     output_file = args[1]
-    coordonnees = read_problems(1,"./Q3 ACM/"+input_file)
-    visited= []
-
+    coordonnees = read_problems(1,input_file)
     liste_coordonnees=[]
     for i in range(len(coordonnees)):
-        k= i +1
-        for j in range(k, len(coordonnees)):
+        for j in range(i +1, len(coordonnees)):
             liste_coordonnees.append([distance(coordonnees[i][0],coordonnees[i][1],coordonnees[j][0], coordonnees[j][1]),
                                 f"S{i}", f"S{j}" ])
-    print("-----------------------------------")
-    breakpoint()
     def takeFirst(elem):
         return elem[0]
 
+    def taille_set(ensemble):
+        return -len(ensemble)
+
+    def connexion(liste):
+        tmp = set(liste)
+        compteur = 0
+        for x in ens_connexion:
+            inter = len((tmp & x))
+            if inter == 1:
+                ens_connexion[ens_connexion.index(x)] = x.union(tmp)
+                #ens_connexion.sort(key=taille_set)
+                return True
+            elif inter == 2:
+                if compteur > 0 :
+                    ens_connexion[:compteur]
+                return False
+            else:
+                ens_connexion.append(tmp)
+                compteur += 1
+                #ens_connexion.sort(key=taille_set)
+                #return True
+
     liste_coordonnees = sorted(liste_coordonnees, key=takeFirst)
 
-    for x in liste_coordonnees:
-        if len(visited) < len(coordonnees):
-            if x[2] in  visited  and x[1] in visited:
-                continue
-            else:
+    #ajoute les premiers elements dans la liste connecte
+    #connected.append(liste_coordonnees[0][1])
+
+    for i in range (len(liste_coordonnees)):
+        x = liste_coordonnees[0]
+        if len(ens_connexion[0]) < len(coordonnees):
+            add = connexion(x[1:])
+            if add == True :
                 acm = acm + x[0]
-                for i in range(1,3):
-                    if x[i] not in visited:
-                        visited.append(x[i])
-                        print(len(visited))
+            liste_coordonnees.pop(0)
         else:
             break
-    print(acm)
+
+
+    write(output_file,str(acm))
 
 #NE PAS TOUCHER
 #DO NOT TOUCH
