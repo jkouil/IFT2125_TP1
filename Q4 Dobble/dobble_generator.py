@@ -156,8 +156,3 @@ class Generator():
         # a completer
 
 
-#if __name__ == '__main__':
- #   g = Generator()
- #   v = dobble_verificator.Verificator()
-   # print(v.verify("cartes.txt",False))
-    #g.generate(g, False)
